@@ -1,14 +1,24 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
     <title>Document</title>
 </head>
 <body>
     <header>
         {% block page_nav %}
-        <h1>Шапка</h1>
+        <nav class="menu">
+            <div class="left-menu">
+                <a href='schedule/' class="menu-item">Запись</a>
+                <a href='profile/' class="menu-item">Профиль</a>
+            </div>
+            <div class="right-menu">
+                <a href='' class="menu-item">Выход</a>
+            </div>
+        </nav>
         {% endblock %}
     </header>
 

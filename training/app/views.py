@@ -57,32 +57,3 @@ def sign_up_by_django(request):
     else:
         form = UserRegister()
     return render(request, 'registration.html', {'form': form})
-
-
-# def sign_up_by_html(request):
-#     users = ['Gregory', 'Alex', 'Anna', 'Victor']
-#     info = {}
-#     context = {
-#         'info': info
-#     }
-#     if request.method == 'POST':
-#         username = request.POST.get('username')
-#         password = request.POST.get('password')
-#         repeat_password = request.POST.get('repeat_password')
-#         age = request.POST.get('age')
-
-#         if password==repeat_password and int(age) > 18 and username not in users:
-#             return HttpResponse(f'Приветствуем, {username}!')
-#         elif password != repeat_password:
-#             info['error'] = 'Пароли не совпадают'
-#             return render(request, 'app/registration.html', context)
-#         elif int(age) < 18:
-#             info['error'] = 'Вы должны быть старше 18'
-#             return render(request, 'app/registration.html', context)
-#         elif username in users:
-#             info['error'] = 'Пользователь уже существует'
-#             return render(request, 'app/registration.html', context)
-
-
-#     else:
-#         return render(request, 'app/registration.html')
