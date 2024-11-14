@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'training.wsgi.application'
 DATABASES = {
 'default': {
 'ENGINE': 'django.db.backends.postgresql',
-'NAME': 'training-django',
+'NAME': 'diplom-django',
 'USER': 'postgres',
 'PASSWORD': '1qaz2wsx',
 'HOST': '127.0.0.1',
