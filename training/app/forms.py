@@ -1,3 +1,4 @@
+import datetime
 from django import forms
 
 
@@ -17,3 +18,8 @@ class UserProfileForm(forms.Form):
     last_name = forms.CharField(max_length=100)
     age = forms.IntegerField(max_value=100)
     email = forms.CharField(max_length=100)
+
+
+class DateTimeForm(forms.Form):
+    date_time = forms.DateTimeField(required=False, widget=forms.DateInput(attrs={'type': 'datetime-local'}),
+                                     initial=datetime.date.today(), localize=True)

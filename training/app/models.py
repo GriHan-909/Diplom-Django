@@ -23,5 +23,11 @@ class UserProfile(models.Model):
     age = models.IntegerField(default=0)
     email = models.EmailField()
 
+
     def __str__(self):
         return f"{self.name} {self.last_name} {self.email}"
+
+class DateTimeTrain(models.Model):
+    training_sessions = models.CharField(default='')
+    date = models.DateField(null=True)
+    users = models.ManyToManyField(UserProfile)

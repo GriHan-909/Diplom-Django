@@ -1,14 +1,13 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
-from .forms import UserRegister, UserLogin, UserProfileForm
-from .models import User, UserProfile
+from .forms import UserRegister, UserLogin, UserProfileForm, DateTimeForm
+from .models import User, UserProfile, DateTimeTrain
 
 user_inner = {}
 
-# Create your views here.
+
 def log_in(request):
     global user_inner
-    user_inner = {}
     emails =tuple(item.email for item in User.objects.all())
     if request.method == 'POST':
         form = UserLogin(request.POST)
@@ -88,21 +87,32 @@ def profile_view(request):
 def schedule_list(request):
     if user_inner and user_inner['used']:
         title = 'Выберите секцию'
-        sports_sections = ['Айс-скейтинг', 'Баскетбол', 'Бодибилдинг', 'Бокс',
-                           'Волейбол', 'Гимнастика', 'Йога', 'Каратэ', 'Легкая атлетика',
-                           'Плавание', 'Регби', 'Сальса', 'Скейтбординг', 'Спокойный спорт',
-                           'Спортивное ориентирование', 'Теннис', 'Фигурное катание', 'Фитнес',
+        sports_sections = ['Баскетбол', 'Бодибилдинг', 'Бокс', 'Волейбол', 'Гимнастика', 'Каратэ',
+                           'Плавание', 'Регби', 'Сальса', 'Спортивное ориентирование', 'Теннис', 'Фитнес',
                            'Футбол', 'Хоккей']
 
-        page_size = request.GET.get('page_size', 3)
-        paginator = Paginator(sports_sections, page_size)
+
+        paginator = Paginator(sports_sections, 5)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
         context = {
             'title': title,
-            'sports_sections': sports_sections,
-            'page_obj': page_obj,'page_size': page_size
+            'page_obj': page_obj
         }
         return render(request, 'schedule.html', context)
     else:
          return redirect(log_in)
+
+
+def section(request, name):
+    user = UserProfile.objects.get(email=user_inner['email'])
+    DateTimeTrain.objects.filter(id=user.id).update(training_sessions=name)
+    form = DateTimeForm(request.POST)
+    if request.method == 'POST':
+        if form.is_valid():
+            selected_date_time = form.cleaned_data['date_time']
+            DateTimeTrain.objects.filter(id=user.id).update(date=selected_date_time)
+            return render(request, 'section.html', {'form': form, 'selected_date_time': selected_date_time, 'name': name})
+    else:
+        form = DateTimeForm()
+    return render(request, 'section.html', {'form': form, 'name': name})

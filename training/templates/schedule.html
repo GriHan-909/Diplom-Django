@@ -10,23 +10,14 @@
 
 {% block content %}
     <ul>
-        {%for section in sports_sections%}
-        <li><h3> {{section}} <button>Перейти</button></h3></li>
+        {%for section in page_obj%}
+        <li><h3> {{section}} </h3>
+        <form action="{% url 'section' section %}" method="get">
+            <button type="submit">Перейти</button>
+        </form>
+        </li>
         {% endfor %}
     </ul>
-
-
-    {% comment %} <ul>
-        {% for post in page_obj %}
-            <li>
-                <h2>{{ post.title }}</h2>
-                <p>{{ post.content }}</p>
-                <small>Создано: {{ post.created_at }}</small>
-            </li>
-        {% empty %}
-            <li>Нет постов.</li>
-        {% endfor %}
-    </ul> {% endcomment %}
 
     <div class="pagination">
         <span class="step-links">
@@ -45,13 +36,4 @@
             {% endif %}
         </span>
     </div>
-    <form method="get">
-        <label for="page_size">Количество секций на странице:</label>
-        <select name="page_size" id="page_size" onchange="this.form.submit()">
-            <option value="3">3</option>
-            <option value="5">5</option>
-            <option value="10">10</option>
-        </select>
-        <input type="hidden" name="page" value="{{ page_obj.number }}">
-    </form>
 {% endblock content %}
