@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from .forms import UserRegister, UserLogin, UserProfileForm
 from .models import User, UserProfile
@@ -80,5 +81,28 @@ def profile_view(request):
             form = UserProfileForm()
             context = {'user_profile': user_profile, 'form': form}
             return render(request, 'profile.html', context)
+    else:
+         return redirect(log_in)
+
+
+def schedule_list(request):
+    if user_inner and user_inner['used']:
+        title = 'Выберите секцию'
+        sports_sections = ['Айс-скейтинг', 'Баскетбол', 'Бодибилдинг', 'Бокс',
+                           'Волейбол', 'Гимнастика', 'Йога', 'Каратэ', 'Легкая атлетика',
+                           'Плавание', 'Регби', 'Сальса', 'Скейтбординг', 'Спокойный спорт',
+                           'Спортивное ориентирование', 'Теннис', 'Фигурное катание', 'Фитнес',
+                           'Футбол', 'Хоккей']
+
+        page_size = request.GET.get('page_size', 3)
+        paginator = Paginator(sports_sections, page_size)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context = {
+            'title': title,
+            'sports_sections': sports_sections,
+            'page_obj': page_obj,'page_size': page_size
+        }
+        return render(request, 'schedule.html', context)
     else:
          return redirect(log_in)

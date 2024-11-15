@@ -56,3 +56,13 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+
+.pagination {
+    margin: 20px 0;
+}
+
+.step-links {
+    justify-content: left;
+    list-style-type: none;
+
+}
