@@ -1,0 +1,55 @@
+.menu {
+    display: flex;
+    justify-content: space-between; /* Разделяем элементы по краям */
+    padding: 10px;
+    background-color: #f0f0f0;
+
+}
+
+.left-menu {
+    display: flex; /* Для расположения первых двух пунктов слева */
+}
+
+.menu-item {
+    margin-right: 20px; /* Промежуток между элементами */
+    text-decoration: none; /* Убираем подчеркивание у ссылок */
+    color: black; /* Цвет текста */
+}
+
+.right-menu {
+    margin-left: auto; /* Сдвигаем третий пункт вправо */
+}
+
+.menu-item:hover {
+    color: blue; /* Меняем цвет при наведении */
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 20%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
